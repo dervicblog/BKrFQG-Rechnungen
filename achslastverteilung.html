@@ -5,84 +5,89 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Achslastverteilung - Bkf</title>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            background: #ffffff;
-            margin: 0;
-            padding: 20px;
-            font-family: 'Caveat', cursive;
-            color: #222;
-            font-size: 26px;
-        }
-        
-        .blatt {
-            width: 100%;
-            max-width: 999px;
-            margin: 0 auto;
-            padding: 40px;
-        }
-
-        h2 {
-            border-bottom: 3px solid #000;
-            padding-bottom: 15px;
-            font-size: 36px;
-            margin-top: 0;
-            margin-bottom: 30px;
-        }
-
-        /* Povečane, obarvane in KREPKE (bold) spremenljivke */
-        .var-q { color: #0056b3; font-weight: bold; font-size: 28px; } /* Ladung (Q) */
-        .var-l { color: #28a745; font-weight: bold; font-size: 28px; } /* Radstand (L) */
-        .var-a { color: #e67e22; font-weight: bold; font-size: 28px; } /* Abstand (a) */
-        .var-res { color: #d63031; font-weight: bold; font-size: 28px; } /* Achslast */
-
-        .formel-box {
-            padding: 25px;
-            border: 2px solid #ddd;
-            background-color: #fafafa;
-            margin-bottom: 40px;
-            border-radius: 10px;
-            font-size: 26px;
-            line-height: 1.6;
-        }
-
-        .calc-row {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 25px;
-            font-size: 26px;
-        }
-
-        input {
-            border: none;
-            border-bottom: 2px solid #000;
-            background: transparent;
-            width: 120px;
-            font-family: 'Caveat', cursive;
-            font-size: 26px;
-            text-align: center;
-            font-weight: bold;
-            color: #000;
-        }
-        
-        button {
-            background: #f0f0f0;
-            border: 1px solid #333;
-            padding: 8px 20px;
-            cursor: pointer;
-            font-family: 'Caveat', cursive;
-            font-size: 22px;
-            border-radius: 8px;
-        }
-
-        .result-box {
-            margin-top: 30px;
-            padding: 20px;
-            border-top: 2px solid #333;
-        }
-    </style>
+        <style>
+            /* mobile size */
+            * {
+                box-sizing: border-box;
+            }
+            
+            body {
+                background: #ffffff;
+                margin: 0;
+                padding: 20px;
+                font-family: 'Caveat', cursive;
+                color: #222;
+                font-size: 26px;
+            }
+            
+            .blatt {
+                width: 100%;
+                max-width: 999px;
+                margin: 0 auto;
+                padding: 40px;
+            }
+            
+            h2 {
+                border-bottom: 3px solid #000;
+                padding-bottom: 15px;
+                font-size: 36px;
+                margin-top: 0;
+                margin-bottom: 30px;
+            }
+            
+            /* Povečane, obarvane in KREPKE (bold) spremenljivke */
+            .var-q { color: #0056b3; font-weight: bold; font-size: 28px; } /* Ladung (Q) */
+            .var-l { color: #28a745; font-weight: bold; font-size: 28px; } /* Radstand (L) */
+            .var-a { color: #e67e22; font-weight: bold; font-size: 28px; } /* Abstand (a) */
+            .var-res { color: #d63031; font-weight: bold; font-size: 28px; } /* Achslast */
+            
+            .formel-box {
+                padding: 25px;
+                border: 2px solid #ddd;
+                background-color: #fafafa;
+                margin-bottom: 40px;
+                border-radius: 10px;
+                font-size: 26px;
+                line-height: 1.6;
+            }
+            
+            .calc-row {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                gap: 15px;
+                margin-bottom: 25px;
+                font-size: 26px;
+            }
+            
+            input {
+                border: none;
+                border-bottom: 2px solid #000;
+                background: transparent;
+                width: 120px;
+                font-family: 'Caveat', cursive;
+                font-size: 26px;
+                text-align: center;
+                font-weight: bold;
+                color: #000;
+            }
+            
+            button {
+                background: #f0f0f0;
+                border: 1px solid #333;
+                padding: 8px 20px;
+                cursor: pointer;
+                font-family: 'Caveat', cursive;
+                font-size: 22px;
+                border-radius: 8px;
+            }
+            
+            .result-box {
+                margin-top: 30px;
+                padding: 20px;
+                border-top: 2px solid #333;
+            }
+        </style>
 </head>
 <body>
 

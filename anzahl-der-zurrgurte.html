@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zurrwinkel Rechner - Bkf</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #ffffff;
+            margin: 0;
+            padding: 20px;
+            font-family: 'Caveat', cursive;
+            color: #222;
+            font-size: 26px;
+        }
+        
+        .blatt {
+            width: 100%;
+            max-width: 999px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h2 {
+            border-bottom: 3px solid #000;
+            padding-bottom: 15px;
+            font-size: 36px;
+            margin-top: 0;
+            margin-bottom: 30px;
+        }
+
+        /* Obarvane spremenljivke */
+        .var-alpha { color: #0056b3; font-weight: bold; font-size: 32px; } /* Modra */
+        .var-g { color: #d63031; font-weight: bold; font-size: 32px; } /* Rdeča */
+        .var-a { color: #28a745; font-weight: bold; font-size: 32px; } /* Zelena */
+
+        .formel-box {
+            padding: 25px;
+            border: 2px solid #ddd;
+            background-color: #fafafa;
+            margin-bottom: 40px;
+            border-radius: 10px;
+            font-size: 26px;
+            line-height: 1.6;
+        }
+
+        .calc-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            font-size: 26px;
+        }
+
+        input {
+            border: none;
+            border-bottom: 2px solid #000;
+            background: transparent;
+            width: 80px;
+            font-family: 'Caveat', cursive;
+            font-size: 26px;
+            text-align: center;
+            font-weight: bold;
+            color: #000;
+        }
+        
+        button {
+            background: #f0f0f0;
+            border: 1px solid #333;
+            padding: 8px 20px;
+            cursor: pointer;
+            font-family: 'Caveat', cursive;
+            font-size: 22px;
+            border-radius: 8px;
+        }
+
+        .res {
+            font-weight: bold;
+            padding: 2px 5px;
+            display: inline-block;
+            font-size: 32px;
+        }
+        
+        
+        
+        /* CSS Trikotnik */
+        .triangle-visual {
+            width: 0; height: 0;
+            border-left: 0px solid transparent;
+            border-right: 200px solid transparent;
+            border-bottom: 150px solid #eee;
+            margin: 20px auto;
+            position: relative;
+            border-left: 200px solid #ccc; /* "G" višina */
+        }
+        .label-g { position: absolute; left: -50px; top: 60px; color: #d63031; font-weight: bold; }
+        .label-a { position: absolute; bottom: -30px; left: 50px; color: #28a745; font-weight: bold; }
+        .label-alpha { position: absolute; bottom: 10px; right: 10px; color: #0056b3; font-weight: bold; }
+        
+        
+    </style>
+</head>
+<body>
+
+<div class="blatt">
+    <h2>Berechnung: Zurrwinkel (α)</h2>
+    
+    <div class="formel-box">
+        <strong>Erklärung:</strong><br><br>
+        
+        
+        
+        <div style="position: relative; height: 200px;">
+            <div class="triangle-visual">
+                <span class="label-g">G</span>
+                <span class="label-a">A</span>
+                <span class="label-alpha">α</span>
+            </div>
+        </div>
+        
+        
+        
+        <span class="var-alpha">α</span> = Zurrwinkel<br>
+        <span class="var-g">G</span> = Höhe (Gegenkathete) [m]<br>
+        <span class="var-a">A</span> = Länge (Ankathete) [m]<br><br>
+        <strong>Formel:</strong> <span class="var-alpha">α</span> = arctan( <span class="var-g">G</span> / <span class="var-a">A</span> )
+    </div>
+    
+    <div class="calc-row">
+        <strong>Winkel berechnen:</strong>
+        <span class="var-g">G</span>: <input type="number" id="gegen" value="1.5" step="0.1"> m /
+        <span class="var-a">A</span>: <input type="number" id="an" value="2.0" step="0.1"> m =
+        <button onclick="calcAlpha()">Berechnen</button> -> <span class="res var-alpha" id="res_alpha">...</span>°
+    </div>
+</div>
+
+<script>
+    function calcAlpha() {
+        const g = parseFloat(document.getElementById('gegen').value);
+        const a = parseFloat(document.getElementById('an').value);
+        
+        // Izračun v stopinjah
+        const deg = Math.atan(g / a) * (180 / Math.PI);
+        
+        const resEl = document.getElementById('res_alpha');
+        resEl.innerText = deg.toFixed(1);
+    }
+</script>
+
+</body>
+</html>

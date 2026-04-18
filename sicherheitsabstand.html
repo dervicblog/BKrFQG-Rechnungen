@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sicherheitsabstand - Bkf</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #ffffff;
+            margin: 0;
+            padding: 20px;
+            font-family: 'Caveat', cursive;
+            color: #222;
+            font-size: 26px;
+        }
+        
+        .blatt {
+            width: 100%;
+            max-width: 999px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h2 {
+            border-bottom: 3px solid #000;
+            padding-bottom: 15px;
+            font-size: 36px;
+            margin-top: 0;
+            margin-bottom: 30px;
+        }
+
+        /* Obarvane in KREPKE spremenljivke */
+        .var-v { color: #0056b3; font-weight: bold; font-size: 28px; } /* Geschwindigkeit */
+        .var-res { color: #d63031; font-weight: bold; font-size: 32px; } /* Ergebnis (Abstand) */
+
+        .formel-box {
+            padding: 25px;
+            border: 2px solid #ddd;
+            background-color: #fafafa;
+            margin-bottom: 40px;
+            border-radius: 10px;
+            font-size: 26px;
+            line-height: 1.6;
+        }
+
+        .calc-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            font-size: 26px;
+        }
+
+        input {
+            border: none;
+            border-bottom: 2px solid #000;
+            background: transparent;
+            width: 120px;
+            font-family: 'Caveat', cursive;
+            font-size: 26px;
+            text-align: center;
+            font-weight: bold;
+            color: #000;
+        }
+        
+        button {
+            background: #f0f0f0;
+            border: 1px solid #333;
+            padding: 8px 20px;
+            cursor: pointer;
+            font-family: 'Caveat', cursive;
+            font-size: 22px;
+            border-radius: 8px;
+        }
+
+        .result-box {
+            margin-top: 30px;
+            padding: 20px;
+            border-top: 2px solid #333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="blatt">
+    <h2>Berechnung: Sicherheitsabstand</h2>
+    
+    <div class="formel-box">
+        <strong>Faustformel (ab 50 km/h):</strong><br>
+        <span class="var-res">s</span> = <span class="var-v">v</span> / 2
+    </div>
+    
+    <div class="calc-row">
+        <strong>1. Geschwindigkeit (<span class="var-v">v</span>) [km/h]:</strong>
+        <input type="number" id="speed" value="80">
+    </div>
+
+    <div class="calc-row">
+        <button onclick="berechneAbstand()">Abstand berechnen</button>
+    </div>
+
+    <div class="result-box">
+        <strong>Ergebnis:</strong><br>
+        Empfohlener Sicherheitsabstand (<span class="var-res">s</span>): <span class="var-res" id="res_abstand">...</span> Meter
+    </div>
+</div>
+
+<script>
+    function berechneAbstand() {
+        const v = parseFloat(document.getElementById('speed').value);
+        
+        // Formel: v / 2
+        const s = v / 2;
+        
+        document.getElementById('res_abstand').innerText = s.toFixed(0);
+    }
+</script>
+
+</body>
+</html>

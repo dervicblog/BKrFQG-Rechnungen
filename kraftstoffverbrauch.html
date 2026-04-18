@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kraftstoffverbrauch - Bkf</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #ffffff;
+            margin: 0;
+            padding: 20px;
+            font-family: 'Caveat', cursive;
+            color: #222;
+            font-size: 26px;
+        }
+        
+        .blatt {
+            width: 100%;
+            max-width: 999px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h2 {
+            border-bottom: 3px solid #000;
+            padding-bottom: 15px;
+            font-size: 36px;
+            margin-top: 0;
+            margin-bottom: 30px;
+        }
+
+        /* Povečane, obarvane in KREPKE (bold) spremenljivke */
+        .var-l { color: #0056b3; font-weight: bold; font-size: 29px; } /* Modra (L) */
+        .var-s { color: #28a745; font-weight: bold; font-size: 29px; } /* Zelena (s) */
+        .var-c { color: #e67e22; font-weight: bold; font-size: 29px; } /* Oranžna (c) */
+
+        .formel-box {
+            padding: 25px;
+            border: 2px solid #ddd;
+            background-color: #fafafa;
+            margin-bottom: 40px;
+            border-radius: 10px;
+            font-size: 26px;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            background-color: #fff176;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .calc-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            font-size: 26px;
+        }
+
+        input {
+            border: none;
+            border-bottom: 2px solid #000;
+            background: transparent;
+            width: 80px;
+            font-family: 'Caveat', cursive;
+            font-size: 26px;
+            text-align: center;
+            font-weight: bold;
+            color: #000;
+        }
+        
+        button {
+            background: #f0f0f0;
+            border: 1px solid #333;
+            padding: 8px 20px;
+            cursor: pointer;
+            font-family: 'Caveat', cursive;
+            font-size: 22px;
+            border-radius: 8px;
+        }
+
+        .res {
+            font-weight: bold;
+            padding: 2px 5px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+<div class="blatt">
+    <h2>Berechnung: Kraftstoffverbrauch</h2>
+    
+    <div class="formel-box">
+        <strong>Erklärung:</strong><br><br>
+        <span class="var-l">L</span> = Liter verbraucht <br>
+        <span class="var-s">s</span> = Strecke (km) <br>
+        <span class="var-c">c</span> = Verbrauch (l/100km)<br><br>
+        <em>Wichtig:</em> <span class="highlight"><span class="var-c">c</span> = (<span class="var-l">L</span> / <span class="var-s">s</span>) * 100</span>
+    </div>
+    
+    <div class="calc-row">
+        <strong>1. Verbrauch (<span class="var-c">c</span>):</strong>
+        (<span class="var-l">L</span>: <input type="number" id="l1" value="30"> / <span class="var-s">s</span>: <input type="number" id="s1" value="400">) * 100 =
+        <button onclick="calcVerbrauch()">Berechnen</button> -> <span class="res" id="res_c">...</span> l/100km
+    </div>
+    
+    <div class="calc-row">
+        <strong>2. Benötigte Liter (<span class="var-l">L</span>):</strong>
+        (<span class="var-s">s</span>: <input type="number" id="s2" value="500"> * <span class="var-c">c</span>: <input type="number" id="c2" value="30">) / 100 =
+        <button onclick="calcLiter()">Berechnen</button> -> <span class="res" id="res_l">...</span> Liter
+    </div>
+    
+    <div class="calc-row">
+        <strong>3. Mögliche Strecke (<span class="var-s">s</span>):</strong>
+        (<span class="var-l">L</span>: <input type="number" id="l3" value="100"> * 100) / <span class="var-c">c</span>: <input type="number" id="c3" value="30"> =
+        <button onclick="calcStrecke()">Berechnen</button> -> <span class="res" id="res_s">...</span> km
+    </div>
+</div>
+
+<script>
+    function calcVerbrauch() {
+        const l = parseFloat(document.getElementById('l1').value);
+        const s = parseFloat(document.getElementById('s1').value);
+        const c = (l / s) * 100;
+        const resEl = document.getElementById('res_c');
+        resEl.innerText = c.toFixed(1);
+        resEl.className = 'res var-c'; // Barva za c
+    }
+
+    function calcLiter() {
+        const s = parseFloat(document.getElementById('s2').value);
+        const c = parseFloat(document.getElementById('c2').value);
+        const l = (s * c) / 100;
+        const resEl = document.getElementById('res_l');
+        resEl.innerText = l.toFixed(1);
+        resEl.className = 'res var-l'; // Barva za L
+    }
+
+    function calcStrecke() {
+        const l = parseFloat(document.getElementById('l3').value);
+        const c = parseFloat(document.getElementById('c3').value);
+        const s = (l * 100) / c;
+        const resEl = document.getElementById('res_s');
+        resEl.innerText = s.toFixed(0);
+        resEl.className = 'res var-s'; // Barva za s
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lenkzeiten & Pausen - Bkf</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { background: #ffffff; margin: 0; padding: 20px; font-family: 'Caveat', cursive; color: #222; font-size: 24px; }
+        .blatt { width: 100%; max-width: 999px; margin: 0 auto; padding: 40px; }
+        h2 { border-bottom: 3px solid #000; padding-bottom: 15px; font-size: 36px; margin-top: 40px; margin-bottom: 30px; }
+        
+        /* Barve */
+        .var-d { color: #0056b3; font-weight: bold; }
+        .var-r { color: #28a745; font-weight: bold; }
+        .var-brake { color: #d63031; font-weight: bold; }
+        
+        .formel-box { padding: 25px; border: 2px solid #ddd; background-color: #fafafa; margin-bottom: 30px; border-radius: 10px; line-height: 1.6; font-size: 24px; }
+        .calc-row { display: flex; flex-wrap: wrap; align-items: center; gap: 15px; margin-bottom: 20px; }
+        
+        input { border: none; border-bottom: 2px solid #000; background: transparent; width: 60px; font-family: 'Caveat', cursive; font-size: 26px; text-align: center; font-weight: bold; }
+        button { background: #f0f0f0; border: 1px solid #333; padding: 8px 20px; cursor: pointer; font-family: 'Caveat', cursive; font-size: 22px; border-radius: 8px; }
+        .res { font-weight: bold; padding: 2px 5px; display: inline-block; }
+    </style>
+</head>
+<body>
+
+<div class="blatt">
+    <h2>Regeln & Infos: Lenkzeiten</h2>
+    <div class="formel-box">
+        <strong>Tägliche Lenkzeit:</strong> 9 Stunden (2x pro Woche 10h möglich).<br>
+        <strong>Pause:</strong> <span class="var-brake">45 Minuten</span> nach max. <span class="var-d">4,5 Stunden</span> Fahrt.<br>
+        <strong>Wöchentlich:</strong> Max. <span class="var-d">56 Stunden</span>.<br>
+        <strong>Zweiwöchentlich:</strong> Max. <span class="var-d">90 Stunden</span>.
+    </div>
+
+    <h2>Wochen-Rechner: 56h Limit</h2>
+    <div class="formel-box">
+        Gib an, an wie vielen Tagen du wie viele Stunden fährst:
+    </div>
+    
+    <div class="calc-row">
+        Anzahl Tage mit 8h Fahrt: <input type="number" id="d8" value="3">
+    </div>
+    <div class="calc-row">
+        Anzahl Tage mit 9h Fahrt: <input type="number" id="d9" value="2">
+    </div>
+    <div class="calc-row">
+        <button onclick="calcWoche()">Berechnen</button> -> <span class="res" id="res_w">...</span> Std. gesamt
+    </div>
+    
+    <div id="status" style="margin-top: 20px; font-weight: bold;"></div>
+</div>
+
+<script>
+    function calcWoche() {
+        const d8 = parseFloat(document.getElementById('d8').value) || 0;
+        const d9 = parseFloat(document.getElementById('d9').value) || 0;
+        
+        const total = (d8 * 8) + (d9 * 9);
+        const resEl = document.getElementById('res_w');
+        const statusEl = document.getElementById('status');
+        
+        resEl.innerText = total;
+        
+        if (total > 56) {
+            resEl.style.color = "#d63031";
+            statusEl.innerText = "Achtung: Limit überschritten! (Max 56h)";
+            statusEl.style.color = "#d63031";
+        } else {
+            resEl.style.color = "#28a745";
+            statusEl.innerText = "Alles in Ordnung, du bist im Limit.";
+            statusEl.style.color = "#28a745";
+        }
+    }
+</script>
+
+</body>
+</html>

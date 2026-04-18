@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutzlast Rechner - Bkf</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #ffffff;
+            margin: 0;
+            padding: 20px;
+            font-family: 'Caveat', cursive;
+            color: #222;
+            font-size: 26px;
+        }
+        
+        .blatt {
+            width: 100%;
+            max-width: 999px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h2 {
+            border-bottom: 3px solid #000;
+            padding-bottom: 15px;
+            font-size: 36px;
+            margin-top: 0;
+            margin-bottom: 30px;
+        }
+
+        /* Povečane, obarvane in KREPKE (bold) spremenljivke */
+        .var-z { color: #0056b3; font-weight: bold; font-size: 28px; } /* Zulässiges (Z) */
+        .var-t { color: #28a745; font-weight: bold; font-size: 28px; } /* Tara (T) */
+        .var-n { color: #d63031; font-weight: bold; font-size: 28px; } /* Nutzlast (N) */
+
+        .formel-box {
+            padding: 25px;
+            border: 2px solid #ddd;
+            background-color: #fafafa;
+            margin-bottom: 40px;
+            border-radius: 10px;
+            font-size: 26px;
+            line-height: 1.6;
+        }
+
+        .calc-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            font-size: 26px;
+        }
+
+        input {
+            border: none;
+            border-bottom: 2px solid #000;
+            background: transparent;
+            width: 120px;
+            font-family: 'Caveat', cursive;
+            font-size: 26px;
+            text-align: center;
+            font-weight: bold;
+            color: #000;
+        }
+        
+        button {
+            background: #f0f0f0;
+            border: 1px solid #333;
+            padding: 8px 20px;
+            cursor: pointer;
+            font-family: 'Caveat', cursive;
+            font-size: 22px;
+            border-radius: 8px;
+        }
+
+        .res {
+            font-weight: bold;
+            padding: 2px 5px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+<div class="blatt">
+    <h2>Nutzlast: Berechnung</h2>
+    
+    <div class="formel-box">
+        <strong>Formel:</strong><br>
+        <span class="var-n">N</span> (Nutzlast) = <span class="var-z">Z</span> (Gesamtgewicht) - <span class="var-t">T</span> (Tara)
+    </div>
+    
+    <div class="calc-row">
+        <strong>1. Zulässiges Gesamtgewicht (<span class="var-z">Z</span>) [kg]:</strong>
+        <input type="number" id="gesamt" value="40000">
+    </div>
+    
+    <div class="calc-row">
+        <strong>2. Fahrzeuggewicht (<span class="var-t">T</span>) [kg]:</strong>
+        <input type="number" id="tara" value="15000">
+    </div>
+
+    <div class="calc-row">
+        <button onclick="calcNutzlast()">Berechnen</button> ->
+        Max. Nutzlast: <span class="res var-n" id="res_n">...</span> kg
+    </div>
+</div>
+
+<script>
+    function calcNutzlast() {
+        const z = parseFloat(document.getElementById('gesamt').value);
+        const t = parseFloat(document.getElementById('tara').value);
+        
+        const n = z - t;
+        
+        const resEl = document.getElementById('res_n');
+        resEl.innerText = n.toLocaleString();
+    }
+</script>
+
+</body>
+</html>

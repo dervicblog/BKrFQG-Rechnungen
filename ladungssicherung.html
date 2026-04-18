@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ladungssicherung - Bkf</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #ffffff;
+            margin: 0;
+            padding: 20px;
+            font-family: 'Caveat', cursive;
+            color: #222;
+            font-size: 26px;
+        }
+        
+        .blatt {
+            width: 100%;
+            max-width: 999px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h2 {
+            border-bottom: 3px solid #000;
+            padding-bottom: 15px;
+            font-size: 36px;
+            margin-top: 0;
+            margin-bottom: 30px;
+        }
+
+        /* Povečane, obarvane in KREPKE (bold) spremenljivke */
+        .var-m { color: #0056b3; font-weight: bold; font-size: 28px; } /* Masse (m) */
+        .var-u { color: #28a745; font-weight: bold; font-size: 28px; } /* Reibbeiwert (µ) */
+        .var-f { color: #d63031; font-weight: bold; font-size: 28px; } /* Kraft (F) */
+
+        .formel-box {
+            padding: 25px;
+            border: 2px solid #ddd;
+            background-color: #fafafa;
+            margin-bottom: 40px;
+            border-radius: 10px;
+            font-size: 26px;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            background-color: #fff176;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .calc-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            font-size: 26px;
+        }
+
+        input {
+            border: none;
+            border-bottom: 2px solid #000;
+            background: transparent;
+            width: 100px;
+            font-family: 'Caveat', cursive;
+            font-size: 26px;
+            text-align: center;
+            font-weight: bold;
+            color: #000;
+        }
+        
+        button {
+            background: #f0f0f0;
+            border: 1px solid #333;
+            padding: 8px 20px;
+            cursor: pointer;
+            font-family: 'Caveat', cursive;
+            font-size: 22px;
+            border-radius: 8px;
+        }
+
+        .res {
+            font-weight: bold;
+            padding: 2px 5px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+<div class="blatt">
+    <h2>Ladungssicherung: Berechnung</h2>
+    
+    <div class="formel-box">
+        <strong>Einfache Abschätzung:</strong><br><br>
+        <span class="var-m">m</span> = Masse (kg) <br>
+        <span class="var-u">µ</span> = Gleitreibbeiwert (z.B. 0.3 Holz/Holz) <br>
+        <br>
+        <em>Formel:</em> <span class="highlight"><span class="var-f">F</span> (kN) ≈ <span class="var-m">m</span> * 0.01 * (0.8 - <span class="var-u">µ</span>)</span>
+    </div>
+    
+    <div class="calc-row">
+        <strong>1. Masse (<span class="var-m">m</span>) [kg]:</strong>
+        <input type="number" id="masse" value="2000">
+    </div>
+    
+    <div class="calc-row">
+        <strong>2. Reibbeiwert (<span class="var-u">µ</span>):</strong>
+        <input type="number" id="reib" value="0.3" step="0.1">
+    </div>
+
+    <div class="calc-row">
+        <button onclick="calcSecuring()">Berechnen</button> ->
+        Sicherungskraft: <span class="res var-f" id="res_f">...</span> kN
+    </div>
+</div>
+
+<script>
+    function calcSecuring() {
+        const m = parseFloat(document.getElementById('masse').value);
+        const u = parseFloat(document.getElementById('reib').value);
+        
+        // Vereinfachte Formel für die benötigte Sicherungskraft bei 0.8g Beschleunigung
+        const f = m * 0.01 * (0.8 - u);
+        
+        const resEl = document.getElementById('res_f');
+        resEl.innerText = f.toFixed(1);
+    }
+</script>
+
+</body>
+</html>

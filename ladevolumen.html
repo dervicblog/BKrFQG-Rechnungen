@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volumen Rechner - Bkf</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #ffffff;
+            margin: 0;
+            padding: 20px;
+            font-family: 'Caveat', cursive;
+            color: #222;
+            font-size: 26px;
+        }
+        
+        .blatt {
+            width: 100%;
+            max-width: 999px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h2 {
+            border-bottom: 3px solid #000;
+            padding-bottom: 15px;
+            font-size: 36px;
+            margin-top: 0;
+            margin-bottom: 30px;
+        }
+
+        /* Povečane, obarvane in KREPKE (bold) spremenljivke */
+        .var-l { color: #0056b3; font-weight: bold; font-size: 28px; } /* Länge (L) */
+        .var-b { color: #28a745; font-weight: bold; font-size: 28px; } /* Breite (B) */
+        .var-h { color: #e67e22; font-weight: bold; font-size: 28px; } /* Höhe (H) */
+        .var-v { color: #d63031; font-weight: bold; font-size: 28px; } /* Volumen (V) */
+
+        .formel-box {
+            padding: 25px;
+            border: 2px solid #ddd;
+            background-color: #fafafa;
+            margin-bottom: 40px;
+            border-radius: 10px;
+            font-size: 26px;
+            line-height: 1.6;
+        }
+
+        .calc-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            font-size: 26px;
+        }
+
+        input {
+            border: none;
+            border-bottom: 2px solid #000;
+            background: transparent;
+            width: 100px;
+            font-family: 'Caveat', cursive;
+            font-size: 26px;
+            text-align: center;
+            font-weight: bold;
+            color: #000;
+        }
+        
+        button {
+            background: #f0f0f0;
+            border: 1px solid #333;
+            padding: 8px 20px;
+            cursor: pointer;
+            font-family: 'Caveat', cursive;
+            font-size: 22px;
+            border-radius: 8px;
+        }
+
+        .result-box {
+            margin-top: 30px;
+            padding: 20px;
+            border-top: 2px solid #333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="blatt">
+    <h2>Berechnung: Ladevolumen</h2>
+    
+    <div class="formel-box">
+        <strong>Formel:</strong><br>
+        <span class="var-v">V</span> (m³) = <span class="var-l">L</span> (m) * <span class="var-b">B</span> (m) * <span class="var-h">H</span> (m)
+    </div>
+    
+    <div class="calc-row">
+        <strong>1. Länge (<span class="var-l">L</span>) [m]:</strong>
+        <input type="number" id="laenge" value="13.6" step="0.1">
+    </div>
+    
+    <div class="calc-row">
+        <strong>2. Breite (<span class="var-b">B</span>) [m]:</strong>
+        <input type="number" id="breite" value="2.48" step="0.01">
+    </div>
+
+    <div class="calc-row">
+        <strong>3. Höhe (<span class="var-h">H</span>) [m]:</strong>
+        <input type="number" id="hoehe" value="2.7" step="0.1">
+    </div>
+
+    <div class="calc-row">
+        <button onclick="calcVolumen()">Volumen berechnen</button>
+    </div>
+
+    <div class="result-box">
+        <strong>Ergebnis:</strong><br>
+        Ladevolumen (<span class="var-v">V</span>): <span class="var-v" id="res_v">...</span> m³
+    </div>
+</div>
+
+<script>
+    function calcVolumen() {
+        const l = parseFloat(document.getElementById('laenge').value);
+        const b = parseFloat(document.getElementById('breite').value);
+        const h = parseFloat(document.getElementById('hoehe').value);
+        
+        const v = l * b * h;
+        
+        document.getElementById('res_v').innerText = v.toFixed(2);
+    }
+</script>
+
+</body>
+</html>

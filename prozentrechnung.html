@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prozentrechner - Bkf</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #ffffff;
+            margin: 0;
+            padding: 20px;
+            font-family: 'Caveat', cursive;
+            color: #222;
+            font-size: 26px;
+        }
+        
+        .blatt {
+            width: 100%;
+            max-width: 999px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h2 {
+            border-bottom: 3px solid #000;
+            padding-bottom: 15px;
+            font-size: 36px;
+            margin-top: 0;
+            margin-bottom: 30px;
+        }
+
+        /* Povečane in obarvane spremenljivke */
+        .var-v { color: #0056b3; font-weight: bold; font-size: 28px; } /* Modra (W) */
+        .var-s { color: #28a745; font-weight: bold; font-size: 28px; } /* Zelena (G) */
+        .var-t { color: #e67e22; font-weight: bold; font-size: 28px; } /* Oranžna (p) */
+
+        .formel-box {
+            padding: 25px;
+            border: 2px solid #ddd;
+            background-color: #fafafa;
+            margin-bottom: 40px;
+            border-radius: 10px;
+            font-size: 26px;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            background-color: #fff176;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .calc-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            font-size: 26px;
+        }
+
+        input {
+            border: none;
+            border-bottom: 2px solid #000;
+            background: transparent;
+            width: 80px;
+            font-family: 'Caveat', cursive;
+            font-size: 26px;
+            text-align: center;
+            font-weight: bold;
+            color: #000;
+        }
+        
+        button {
+            background: #f0f0f0;
+            border: 1px solid #333;
+            padding: 8px 20px;
+            cursor: pointer;
+            font-family: 'Caveat', cursive;
+            font-size: 22px;
+            border-radius: 8px;
+        }
+
+        /* Čist videz rezultata brez ozadja/okvirja */
+        .res {
+            font-weight: bold;
+            padding: 2px 5px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+<div class="blatt">
+    <h2>Berechnung: Prozentrechnung</h2>
+    
+    <div class="formel-box">
+        <strong>Erklärung:</strong><br><br>
+        <span class="var-v">W</span> = Prozentwert <br>
+        <span class="var-s">G</span> = Grundwert <br>
+        <span class="var-t">p</span> = Prozentsatz (%)<br><br>
+        <em>Wichtig:</em> <span class="highlight"><span class="var-v">W</span> = <span class="var-s">G</span> * (<span class="var-t">p</span> / 100)</span>
+    </div>
+    
+    <div class="calc-row">
+        <strong>1. Prozentwert (<span class="var-v">W</span>):</strong>
+        <span class="var-s">G</span>: <input type="number" id="g1" value="100"> * <span class="var-t">p</span>: <input type="number" id="p1" value="20"> % / 100 =
+        <button onclick="calcW()">Berechnen</button> -> <span class="res" id="res_w">...</span>
+    </div>
+    
+    <div class="calc-row">
+        <strong>2. Prozentsatz (<span class="var-t">p</span>):</strong>
+        (<span class="var-v">W</span>: <input type="number" id="w2" value="20"> / <span class="var-s">G</span>: <input type="number" id="g2" value="100">) * 100 =
+        <button onclick="calcP()">Berechnen</button> -> <span class="res" id="res_p">...</span> %
+    </div>
+    
+    <div class="calc-row">
+        <strong>3. Grundwert (<span class="var-s">G</span>):</strong>
+        (<span class="var-v">W</span>: <input type="number" id="w3" value="20"> / <span class="var-t">p</span>: <input type="number" id="p3" value="20">) * 100 =
+        <button onclick="calcG()">Berechnen</button> -> <span class="res" id="res_g">...</span>
+    </div>
+</div>
+
+<script>
+    function calcW() {
+        const g = parseFloat(document.getElementById('g1').value);
+        const p = parseFloat(document.getElementById('p1').value);
+        const w = g * (p / 100);
+        const resEl = document.getElementById('res_w');
+        resEl.innerText = w.toFixed(2);
+        resEl.className = 'res var-v'; // Modra za W
+    }
+
+    function calcP() {
+        const w = parseFloat(document.getElementById('w2').value);
+        const g = parseFloat(document.getElementById('g2').value);
+        const p = (w / g) * 100;
+        const resEl = document.getElementById('res_p');
+        resEl.innerText = p.toFixed(2);
+        resEl.className = 'res var-t'; // Oranžna za p
+    }
+
+    function calcG() {
+        const w = parseFloat(document.getElementById('w3').value);
+        const p = parseFloat(document.getElementById('p3').value);
+        const g = (w / p) * 100;
+        const resEl = document.getElementById('res_g');
+        resEl.innerText = g.toFixed(2);
+        resEl.className = 'res var-s'; // Zelena za G
+    }
+</script>
+
+</body>
+</html>

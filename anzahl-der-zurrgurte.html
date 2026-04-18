@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zurrwinkel Rechner - Bkf</title>
+    <title>Anzahl Zurrgurte - Bkf</title>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -30,10 +30,11 @@
             margin-bottom: 30px;
         }
 
-        /* Obarvane spremenljivke */
-        .var-alpha { color: #0056b3; font-weight: bold; font-size: 32px; } /* Modra */
-        .var-g { color: #d63031; font-weight: bold; font-size: 32px; } /* Rdeča */
-        .var-a { color: #28a745; font-weight: bold; font-size: 32px; } /* Zelena */
+        /* Obarvane in KREPKE spremenljivke */
+        .var-m { color: #0056b3; font-weight: bold; font-size: 28px; } /* Masse */
+        .var-mu { color: #28a745; font-weight: bold; font-size: 28px; } /* Reibbeiwert */
+        .var-stf { color: #e67e22; font-weight: bold; font-size: 28px; } /* Vorspannkraft */
+        .var-res { color: #d63031; font-weight: bold; font-size: 32px; } /* Ergebnis */
 
         .formel-box {
             padding: 25px;
@@ -50,7 +51,7 @@
             flex-wrap: wrap;
             align-items: center;
             gap: 15px;
-            margin-bottom: 40px;
+            margin-bottom: 25px;
             font-size: 26px;
         }
 
@@ -58,7 +59,7 @@
             border: none;
             border-bottom: 2px solid #000;
             background: transparent;
-            width: 80px;
+            width: 120px;
             font-family: 'Caveat', cursive;
             font-size: 26px;
             text-align: center;
@@ -76,76 +77,60 @@
             border-radius: 8px;
         }
 
-        .res {
-            font-weight: bold;
-            padding: 2px 5px;
-            display: inline-block;
-            font-size: 32px;
+        .result-box {
+            margin-top: 30px;
+            padding: 20px;
+            border-top: 2px solid #333;
         }
-        
-        
-        
-        /* CSS Trikotnik */
-        .triangle-visual {
-            width: 0; height: 0;
-            border-left: 0px solid transparent;
-            border-right: 200px solid transparent;
-            border-bottom: 150px solid #eee;
-            margin: 20px auto;
-            position: relative;
-            border-left: 200px solid #ccc; /* "G" višina */
-        }
-        .label-g { position: absolute; left: -50px; top: 60px; color: #d63031; font-weight: bold; }
-        .label-a { position: absolute; bottom: -30px; left: 50px; color: #28a745; font-weight: bold; }
-        .label-alpha { position: absolute; bottom: 10px; right: 10px; color: #0056b3; font-weight: bold; }
-        
-        
     </style>
 </head>
 <body>
 
 <div class="blatt">
-    <h2>Berechnung: Zurrwinkel (α)</h2>
+    <h2>Berechnung: Anzahl der Zurrgurte</h2>
     
     <div class="formel-box">
-        <strong>Erklärung:</strong><br><br>
-        
-        
-        
-        <div style="position: relative; height: 200px;">
-            <div class="triangle-visual">
-                <span class="label-g">G</span>
-                <span class="label-a">A</span>
-                <span class="label-alpha">α</span>
-            </div>
-        </div>
-        
-        
-        
-        <span class="var-alpha">α</span> = Zurrwinkel<br>
-        <span class="var-g">G</span> = Höhe (Gegenkathete) [m]<br>
-        <span class="var-a">A</span> = Länge (Ankathete) [m]<br><br>
-        <strong>Formel:</strong> <span class="var-alpha">α</span> = arctan( <span class="var-g">G</span> / <span class="var-a">A</span> )
+        <strong>Grundformel (Niederzurren):</strong><br>
+        <span class="var-res">n</span> = (<span class="var-m">m</span> * 10 * (0.8 - <span class="var-mu">μ</span>)) / (2 * <span class="var-stf">STF</span> * <span class="var-mu">μ</span>)
     </div>
     
     <div class="calc-row">
-        <strong>Winkel berechnen:</strong>
-        <span class="var-g">G</span>: <input type="number" id="gegen" value="1.5" step="0.1"> m /
-        <span class="var-a">A</span>: <input type="number" id="an" value="2.0" step="0.1"> m =
-        <button onclick="calcAlpha()">Berechnen</button> -> <span class="res var-alpha" id="res_alpha">...</span>°
+        <strong>1. Masse des Ladeguts (<span class="var-m">m</span>) [kg]:</strong>
+        <input type="number" id="masse" value="2000">
+    </div>
+    
+    <div class="calc-row">
+        <strong>2. Reibbeiwert (<span class="var-mu">μ</span>) [0.1 - 0.6]:</strong>
+        <input type="number" id="mu" value="0.3" step="0.05">
+    </div>
+
+    <div class="calc-row">
+        <strong>3. Vorspannkraft (<span class="var-stf">STF</span>) [daN]:</strong>
+        <input type="number" id="stf" value="300">
+    </div>
+
+    <div class="calc-row">
+        <button onclick="berechneGurte()">Anzahl berechnen</button>
+    </div>
+
+    <div class="result-box">
+        <strong>Ergebnis:</strong><br>
+        Benötigte Anzahl der Gurte (<span class="var-res">n</span>): <span class="var-res" id="res_gurte">...</span> Stück
     </div>
 </div>
 
 <script>
-    function calcAlpha() {
-        const g = parseFloat(document.getElementById('gegen').value);
-        const a = parseFloat(document.getElementById('an').value);
+    function berechneGurte() {
+        const m = parseFloat(document.getElementById('masse').value);
+        const mu = parseFloat(document.getElementById('mu').value);
+        const stf = parseFloat(document.getElementById('stf').value);
         
-        // Izračun v stopinjah
-        const deg = Math.atan(g / a) * (180 / Math.PI);
+        // n = (m * 10 * (0.8 - mu)) / (2 * STF * sin(alpha) * mu)
+        // Predpostavka: kot 90 stopinj (sin 90 = 1) in 2-stransko napenjanje
         
-        const resEl = document.getElementById('res_alpha');
-        resEl.innerText = deg.toFixed(1);
+        const n = (m * 10 * (0.8 - mu)) / (2 * stf * mu);
+        
+        document.getElementById('res_gurte').innerText = Math.ceil(n);
     }
 </script>
 

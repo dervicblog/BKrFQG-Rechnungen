@@ -3,31 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geschwindigkeit, Weg & Zeit</title>
+    <title>Geschwindigkeit, Weg & Zeit - Bkf</title>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { background: #ffffff; margin: 0; padding: 20px; font-family: 'Caveat', cursive; color: #222; font-size: 26px; }
-        .blatt { width: 100%; max-width: 999px; margin: 0 auto; padding: 0px; }
+        * { box-sizing: border-box; }
+        body {
+            background: #ffffff;
+            margin: 0;
+            padding: 20px;
+            font-family: 'Caveat', cursive;
+            color: #222;
+            font-size: 26px;
+        }
         
-        h2 { border-bottom: 3px solid #000; padding-bottom: 15px; font-size: 36px; margin-top: 50px; margin-bottom: 30px; }
+        .blatt {
+            width: 100%;
+            max-width: 999px;
+            margin: 0 auto;
+            padding: 40px;
+        }
 
-        /* Barve spremenljivk */
-        .var-v { color: #0056b3; font-weight: bold; }
-        .var-s { color: #28a745; font-weight: bold; }
-        .var-t { color: #e67e22; font-weight: bold; }
-        .var-brake { color: #d63031; font-weight: bold; }
-        
-        .formel-box { padding: 25px; border: 2px solid #ddd; background-color: #fafafa; margin-bottom: 40px; border-radius: 10px; line-height: 1.6; }
+        h2 {
+            border-bottom: 3px solid #000;
+            padding-bottom: 15px;
+            font-size: 36px;
+            margin-top: 50px;
+            margin-bottom: 30px;
+        }
+
+        /* Tematske spremenljivke */
+        .var-v { color: #0056b3; font-weight: bold; font-size: 28px; } /* Geschwindigkeit */
+        .var-s { color: #28a745; font-weight: bold; font-size: 28px; } /* Weg */
+        .var-t { color: #e67e22; font-weight: bold; font-size: 28px; } /* Zeit */
+        .var-brake { color: #d63031; font-weight: bold; font-size: 28px; } /* Bremsweg */
+
+        .formel-box {
+            padding: 25px;
+            border: 2px solid #ddd;
+            background-color: #fafafa;
+            margin-bottom: 40px;
+            border-radius: 10px;
+            font-size: 26px;
+            line-height: 1.6;
+        }
+
         .highlight { background-color: #fff176; font-weight: bold; padding: 2px 6px; border-radius: 4px; }
-        
-        .calc-row { display: flex; flex-wrap: wrap; align-items: center; gap: 15px; margin-bottom: 30px; }
-        
-        input { border: none; border-bottom: 2px solid #000; background: transparent; width: 80px; font-family: 'Caveat', cursive; font-size: 26px; text-align: center; font-weight: bold; }
-        button { background: #f0f0f0; border: 1px solid #333; padding: 8px 20px; cursor: pointer; font-family: 'Caveat', cursive; font-size: 22px; border-radius: 8px; }
-        
-        .res { font-weight: bold; padding: 2px 5px; display: inline-block; }
 
-        /* Vizualizacija Anhalteweg */
+        .calc-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            font-size: 26px;
+        }
+
+        input {
+            border: none;
+            border-bottom: 2px solid #000;
+            background: transparent;
+            width: 120px;
+            font-family: 'Caveat', cursive;
+            font-size: 26px;
+            text-align: center;
+            font-weight: bold;
+            color: #000;
+        }
+        
+        button {
+            background: #f0f0f0;
+            border: 1px solid #333;
+            padding: 8px 20px;
+            cursor: pointer;
+            font-family: 'Caveat', cursive;
+            font-size: 22px;
+            border-radius: 8px;
+        }
+
+        .result-box {
+            margin-top: 30px;
+            padding: 20px;
+            border-top: 2px solid #333;
+        }
+
+        /* Vizualizacija Anhalteweg - prilagojeno temi */
         .diag-container { margin-top: 40px; }
         .arrow-line { display: flex; height: 40px; width: 100%; border-radius: 15px; overflow: hidden; background: #eee; border: 1px solid #ccc; }
         .bar-think { background-color: #008cba; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 18px; transition: width 0.5s; }
@@ -46,20 +105,20 @@
     
     <div class="calc-row">
         <strong>Weg (<span class="var-s">s</span>):</strong>
-        <span class="var-v">v</span>: <input type="number" id="v1" value="50"> km/h * <span class="var-t">t</span>: <input type="number" id="t1" value="3"> s / 3,6 =
-        <button onclick="calcWeg()">Berechnen</button> -> <span class="res var-s" id="res_s">...</span> m
+        <span class="var-v">v</span>: <input type="number" id="v1" value="50"> * <span class="var-t">t</span>: <input type="number" id="t1" value="3"> / 3,6 =
+        <button onclick="calcWeg()">Berechnen</button> -> <span class="var-s" id="res_s">...</span> m
     </div>
     
     <div class="calc-row">
         <strong>Zeit (<span class="var-t">t</span>):</strong>
-        <span class="var-s">s</span>: <input type="number" id="s2" value="40"> m / (<span class="var-v">v</span>: <input type="number" id="v2" value="50"> km/h / 3,6) =
-        <button onclick="calcZeit()">Berechnen</button> -> <span class="res var-t" id="res_t">...</span> s
+        <span class="var-s">s</span>: <input type="number" id="s2" value="40"> / (<span class="var-v">v</span>: <input type="number" id="v2" value="50"> / 3,6) =
+        <button onclick="calcZeit()">Berechnen</button> -> <span class="var-t" id="res_t">...</span> s
     </div>
     
     <div class="calc-row">
         <strong>Geschw. (<span class="var-v">v</span>):</strong>
-        (<span class="var-s">s</span>: <input type="number" id="s3" value="40"> m / <span class="var-t">t</span>: <input type="number" id="t3" value="3"> s) * 3,6 =
-        <button onclick="calcGeschw()">Berechnen</button> -> <span class="res var-v" id="res_v">...</span> km/h
+        (<span class="var-s">s</span>: <input type="number" id="s3" value="40"> / <span class="var-t">t</span>: <input type="number" id="t3" value="3">) * 3,6 =
+        <button onclick="calcGeschw()">Berechnen</button> -> <span class="var-v" id="res_v">...</span> km/h
     </div>
 
     <h2>Berechnung: Anhalteweg</h2>
@@ -87,7 +146,6 @@
 </div>
 
 <script>
-    // --- Kinematika Funktionen ---
     function calcWeg() {
         const v = parseFloat(document.getElementById('v1').value);
         const t = parseFloat(document.getElementById('t1').value);
@@ -103,8 +161,6 @@
         const t = parseFloat(document.getElementById('t3').value);
         document.getElementById('res_v').innerText = ((s / t) * 3.6).toFixed(1);
     }
-
-    // --- Anhalteweg Funktion ---
     function calcAnhalteweg() {
         const v = parseFloat(document.getElementById('v_anhalt').value);
         const rw = (v / 10) * 3;

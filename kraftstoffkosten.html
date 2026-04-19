@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stroški: Dizel & AdBlue - Bkf</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            background: #ffffff;
+            margin: 0;
+            padding: 20px;
+            font-family: 'Caveat', cursive;
+            color: #222;
+            font-size: 26px;
+        }
+        
+        .blatt {
+            width: 100%;
+            max-width: 999px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h2 {
+            border-bottom: 3px solid #000;
+            padding-bottom: 15px;
+            font-size: 36px;
+            margin-top: 0;
+            margin-bottom: 30px;
+        }
+
+        /* Obarvane in KREPKE spremenljivke - tvoja tema */
+        .var-d { color: #0056b3; font-weight: bold; font-size: 28px; } /* Dizel */
+        .var-a { color: #e67e22; font-weight: bold; font-size: 28px; } /* AdBlue */
+        .var-t { color: #d63031; font-weight: bold; font-size: 32px; } /* Total/Result */
+
+        .formel-box {
+            padding: 25px;
+            border: 2px solid #ddd;
+            background-color: #fafafa;
+            margin-bottom: 40px;
+            border-radius: 10px;
+            font-size: 26px;
+            line-height: 1.6;
+        }
+
+        .calc-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            font-size: 26px;
+        }
+
+        input {
+            border: none;
+            border-bottom: 2px solid #000;
+            background: transparent;
+            width: 120px;
+            font-family: 'Caveat', cursive;
+            font-size: 26px;
+            text-align: center;
+            font-weight: bold;
+            color: #000;
+        }
+        
+        button {
+            background: #f0f0f0;
+            border: 1px solid #333;
+            padding: 8px 20px;
+            cursor: pointer;
+            font-family: 'Caveat', cursive;
+            font-size: 22px;
+            border-radius: 8px;
+        }
+
+        .result-box {
+            margin-top: 30px;
+            padding: 20px;
+            border-top: 2px solid #333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="blatt">
+    <h2>Berechnung: Kraftstoffkosten</h2>
+    
+    <div class="formel-box">
+        <strong>Formel:</strong><br>
+        <span class="var-t">Kosten</span> = (<span class="var-d">Dizel</span> * Preis) + ((<span class="var-d">Dizel</span> * <span class="var-a">AdBlue</span>-Anteil) * Preis)
+    </div>
+    
+    <div class="calc-row">
+        <strong>1. Verbrauch <span class="var-d">Dizel</span> (l/100km):</strong>
+        <input type="number" id="cons_d" value="30">
+    </div>
+    
+    <div class="calc-row">
+        <strong>2. Preis <span class="var-d">Dizel</span> (€/l):</strong>
+        <input type="number" id="price_d" value="1.65" step="0.01">
+    </div>
+    
+    <div class="calc-row">
+        <strong>3. <span class="var-a">AdBlue</span>-Anteil (z.B. 0.05):</strong>
+        <input type="number" id="ratio_a" value="0.05" step="0.01">
+    </div>
+
+    <div class="calc-row">
+        <strong>4. Preis <span class="var-a">AdBlue</span> (€/l):</strong>
+        <input type="number" id="price_a" value="0.70" step="0.01">
+    </div>
+
+    <div class="calc-row">
+        <button onclick="calcCosts()">Kosten berechnen</button>
+    </div>
+
+    <div class="result-box">
+        <strong>Ergebnis:</strong><br>
+        Gesamtkosten (<span class="var-t">Total</span>): <span class="var-t" id="res_total">...</span> €/100km
+    </div>
+</div>
+
+<script>
+    function calcCosts() {
+        const d_cons = parseFloat(document.getElementById('cons_d').value);
+        const d_price = parseFloat(document.getElementById('price_d').value);
+        const a_price = parseFloat(document.getElementById('price_a').value);
+        const a_ratio = parseFloat(document.getElementById('ratio_a').value);
+
+        const d_cost = d_cons * d_price;
+        const a_cost = (d_cons * a_ratio) * a_price;
+        const total = d_cost + a_cost;
+
+        document.getElementById('res_total').innerText = total.toFixed(2);
+    }
+</script>
+
+</body>
+</html>
